@@ -108,7 +108,7 @@
 
 ' Зелёный заголовок для ромба условий
 !function $newif_title($text)
-  !return $if_title("<font:#lightgreen><b>" + $text + "</b></font>")
+  !return $if_title("<font:#2e7d32><b>" + $text + "</b></font>")
 !endfunction
 
 ' Зелёный шаг/начало цикла repeat
