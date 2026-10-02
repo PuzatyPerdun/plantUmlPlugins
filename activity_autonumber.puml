@@ -101,8 +101,20 @@
   :$_get_num_str()$text;
 !endprocedure
 
+' Зелёный шаг
 !procedure $newstep($text)
   #lightgreen:$_get_num_str()$text;
+!endprocedure
+
+' Зелёный заголовок для ромба условий
+!function $newif_title($text)
+  !return $if_title("<font:#lightgreen><b>" + $text + "</b></font>")
+!endfunction
+
+' Зелёный шаг/начало цикла repeat
+!procedure $newrepeat($text)
+  #lightgreen:$_get_num_str()$text;
+  repeat
 !endprocedure
 
 
