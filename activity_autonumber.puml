@@ -1,0 +1,167 @@
+' ==============================================================================
+' ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+' ==============================================================================
+
+!$num = 1
+!$depth = 0
+
+!$branch_1 = 0
+!$substep_1 = 0
+!$single_1 = 0
+
+!$branch_2 = 0
+!$substep_2 = 0
+!$single_2 = 0
+
+
+' ==============================================================================
+' ВНУТРЕННЯЯ ФУНКЦИЯ ДЛЯ ГЕНЕРАЦИИ СТРОКИ НОМЕРА
+' ==============================================================================
+
+!function $_get_num_str()
+  !if ($depth == 0)
+    !$res = "" + $num
+    !$num = $num + 1
+    !return $res + ". "
+  !endif
+
+  !if ($depth == 1)
+    !$substep_1 = $substep_1 + 1
+    !if ($single_1 == 1)
+      !return "" + $num + "." + $substep_1 + ". "
+    !else
+      !return "" + $num + "." + $branch_1 + "." + $substep_1 + ". "
+    !endif
+  !endif
+
+  !if ($depth == 2)
+    !$substep_2 = $substep_2 + 1
+    !$prefix1 = ""
+    !if ($single_1 == 1)
+      !$prefix1 = "" + $num + "." + $substep_1
+    !else
+      !$prefix1 = "" + $num + "." + $branch_1 + "." + $substep_1
+    !endif
+
+    !if ($single_2 == 1)
+      !return $prefix1 + "." + $substep_2 + ". "
+    !else
+      ' Если $branch_2 ещё 0, подставляем 1
+      !$b2 = $branch_2
+      !if ($b2 == 0)
+        !$b2 = 1
+      !endif
+      !return $prefix1 + "." + $b2 + "." + $substep_2 + ". "
+    !endif
+  !endif
+
+  !return "" + $num + ". "
+!endfunction
+
+
+' ==============================================================================
+' ИСПРАВЛЕННАЯ ФУНКЦИЯ ФОРМИРОВАНИЯ ТЕКСТА РОМБА (БЕЗ 0.0 И СБОЕВ THEN)
+' ==============================================================================
+
+!function $if_title($text)
+  !if ($depth == 0)
+    !return "" + $num + ". " + $text
+  !endif
+
+  !if ($depth == 1)
+    !$next_sub = $substep_1 + 1
+    !if ($single_1 == 1)
+      !return "" + $num + "." + $next_sub + ". " + $text
+    !else
+      !return "" + $num + "." + $branch_1 + "." + $next_sub + ". " + $text
+    !endif
+  !endif
+
+  !if ($depth == 2)
+    !$prefix1 = ""
+    !if ($single_1 == 1)
+      !$prefix1 = "" + $num + "." + $substep_1
+    !else
+      !$prefix1 = "" + $num + "." + $branch_1 + "." + $substep_1
+    !endif
+
+    ' Возвращаем чистый номер 13.4. без внутренних нулей
+    !return $prefix1 + ". " + $text
+  !endif
+
+  !return "" + $num + ". " + $text
+!endfunction
+
+
+' ==============================================================================
+' ОСНОВНЫЕ ПРОЦЕДУРЫ
+' ==============================================================================
+
+!procedure $step($text)
+  :$_get_num_str()$text;
+!endprocedure
+
+!procedure $newstep($text)
+  #lightgreen:$_get_num_str()$text;
+!endprocedure
+
+
+' ==============================================================================
+' УПРАВЛЕНИЕ КОНТЕКСТОМ И ВЛОЖЕННОСТЬЮ
+' ==============================================================================
+
+!procedure $branch($is_single=0)
+  !if ($depth == 0)
+    !$depth = 1
+    !$branch_1 = 1
+    !$substep_1 = 0
+    !$single_1 = $is_single
+  !else
+    !if ($depth == 1)
+      !if ($substep_1 == 0)
+        !$branch_1 = 1
+        !$single_1 = $is_single
+      !else
+        !$branch_1 = $branch_1 + 1
+        !$substep_1 = 0
+        !$single_1 = $is_single
+      !endif
+    !else
+      !if ($depth == 2)
+        !if ($substep_2 == 0)
+          !$branch_2 = 1
+          !$single_2 = $is_single
+        !else
+          !$branch_2 = $branch_2 + 1
+          !$substep_2 = 0
+          !$single_2 = $is_single
+        !endif
+      !endif
+    !endif
+  !endif
+!endprocedure
+
+!procedure $push_if()
+  !$substep_1 = $substep_1 + 1
+  !$depth = 2
+  !$branch_2 = 0
+  !$substep_2 = 0
+  !$single_2 = 0
+!endprocedure
+
+!procedure $end_if()
+  !if ($depth == 2)
+    !$depth = 1
+    !$branch_2 = 0
+    !$substep_2 = 0
+    !$single_2 = 0
+  !else
+    !if ($depth == 1)
+      !$depth = 0
+      !$branch_1 = 0
+      !$substep_1 = 0
+      !$single_1 = 0
+      !$num = $num + 1
+    !endif
+  !endif
+!endprocedure
