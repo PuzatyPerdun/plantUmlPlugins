@@ -92,9 +92,11 @@
 !endfunction
 
 ' Зелёный заголовок для ромба условий
-!function $newrepeat_title($text)
-  !return "<font face='Arial' color='#2e7d32'><b>" + $text + "</b></font>"
+!function $newif_title($text)
+  !$res = $if_title($text)
+  !return "<font face='Arial' color='#2e7d32'><b>" + $res + "</b></font>"
 !endfunction
+
 
 
 ' ==============================================================================
@@ -117,11 +119,9 @@
 !endprocedure
 
 ' Зеленый текст для условия выхода из цикла (внутри repeat while)
-!function $newif_title($text)
-  !$res = $if_title($text)
-  !return "<font face='Arial' color='#2e7d32'><b>" + $res + "</b></font>"
+!function $newrepeat_title($text)
+  !return "<font face='Arial' color='#2e7d32'><b>" + $text + "</b></font>"
 !endfunction
-
 
 ' ==============================================================================
 ' УПРАВЛЕНИЕ КОНТЕКСТОМ И ВЛОЖЕННОСТЬЮ
