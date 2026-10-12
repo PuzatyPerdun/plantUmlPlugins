@@ -110,12 +110,12 @@
 
 ' Зелёное действие
 !procedure $newstep($text)
-  #lightgreen:$_get_num_str()$text;
+  :$_get_num_str()$text; <<#lightgreen>>
 !endprocedure
 
 ' Зеленый шаг цикла (без встроенного repeat, чтобы избегать синтаксических ошибок)
 !procedure $newrepeat($text)
-  #lightgreen:$_get_num_str()$text;
+  :$_get_num_str()$text; <<#lightgreen>>
 !endprocedure
 
 ' Зеленый текст для условия выхода из цикла (внутри repeat while)
