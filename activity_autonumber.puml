@@ -35,7 +35,7 @@
 '   $endif()
 '
 ' Новое условие:
-'   $new_if("Клиент найден?")
+'   $newif("Клиент найден?")
 '
 ' IF с отдельной нумерацией веток:
 '   $if_branches("Клиент найден?")
@@ -59,7 +59,7 @@
 '   $repeat_while("Есть ещё элементы?")
 '
 ' Новый repeat:
-'   $new_repeat()
+'   $newrepeat()
 '
 ' While:
 '   $while("Есть элементы?")
@@ -67,7 +67,7 @@
 '   $endwhile()
 '
 ' Новый while:
-'   $new_while("Есть новые элементы?")
+'   $newwhile("Есть новые элементы?")
 '
 ' Пользователю библиотеки НЕ НУЖНО вручную управлять:
 '   $depth
@@ -248,10 +248,10 @@
 ' ==============================================================================
 '
 ' Внутренние процедуры для:
-'   $new_if()
-'   $new_if_branches()
-'   $new_repeat()
-'   $new_while()
+'   $newif()
+'   $newif_branches()
+'   $newrepeat()
+'   $newwhile()
 
 !procedure $_diamond_new_bg()
 <style>
@@ -280,9 +280,9 @@ activityDiagram {
 '
 ' Общая реализация для:
 '   $if()
-'   $new_if()
+'   $newif()
 '   $if_branches()
-'   $new_if_branches()
+'   $newif_branches()
 '
 ' $text      - текст условия.
 ' $then_text - подпись положительной ветки.
@@ -335,7 +335,7 @@ activityDiagram {
 !endprocedure
 
 ' Аналог $if(), но условие выделяется зелёным.
-!procedure $new_if($text, $then_text="Да")
+!procedure $newif($text, $then_text="Да")
   $_aa_open_if($text, $then_text, 1, 1)
 !endprocedure
 
@@ -365,7 +365,7 @@ activityDiagram {
 !endprocedure
 
 ' Аналог $if_branches(), но условие выделяется зелёным.
-!procedure $new_if_branches($text, $then_text="Да")
+!procedure $newif_branches($text, $then_text="Да")
   $_aa_open_if($text, $then_text, 0, 1)
 !endprocedure
 
@@ -447,7 +447,7 @@ activityDiagram {
 !endprocedure
 
 ' Новый repeat с зелёным условием.
-!procedure $new_repeat()
+!procedure $newrepeat()
   $_diamond_new_bg()
   repeat
   $_diamond_normal_bg()
@@ -481,7 +481,7 @@ activityDiagram {
 !endprocedure
 
 ' Новый while с зелёным условием.
-!procedure $new_while($text, $yes="Да")
+!procedure $newwhile($text, $yes="Да")
   $_diamond_new_bg()
   while ($text) is ($yes)
   $_diamond_normal_bg()
