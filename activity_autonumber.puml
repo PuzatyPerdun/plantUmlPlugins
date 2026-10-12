@@ -56,7 +56,6 @@
 
   !if ($depth == 1)
     !$substep_1 = $substep_1 + 1
-
     !if ($single_1 == 1)
       !return "" + $num + "." + $substep_1 + ". "
     !else
@@ -67,7 +66,6 @@
   !if ($depth == 2)
     !$substep_2 = $substep_2 + 1
     !$prefix1 = ""
-
     !if ($single_1 == 1)
       !$prefix1 = "" + $num + "." + $substep_1
     !else
@@ -104,7 +102,6 @@
 
   !if ($depth == 1)
     !$next_sub = $substep_1 + 1
-
     !if ($single_1 == 1)
       !return "" + $num + "." + $next_sub + ". " + $text
     !else
@@ -269,7 +266,6 @@ activityDiagram {
   !endif
 !endprocedure
 
-
 !procedure $push_if()
   !$substep_1 = $substep_1 + 1
   !$depth = 2
@@ -277,7 +273,6 @@ activityDiagram {
   !$substep_2 = 0
   !$single_2 = 0
 !endprocedure
-
 
 !procedure $end_if()
   !if ($depth == 2)
