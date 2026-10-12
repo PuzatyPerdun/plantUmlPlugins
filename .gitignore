@@ -1,0 +1,9 @@
+# Игнорировать папку настроек IntelliJ IDEA / PhpStorm / PyCharm
+.idea/
+
+# Системные файлы macOS
+.DS_Store
+
+# Логи и временные файлы
+*.log
+tmp/
